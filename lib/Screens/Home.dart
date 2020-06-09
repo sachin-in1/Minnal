@@ -1,3 +1,4 @@
+import 'package:Minnal/shared/constants.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -33,6 +34,7 @@ class _MyHomePageState extends State<MyHomePage> {
             child: Image.asset("assets/drawer.png",fit: BoxFit.fill,height: 100,),
 //          ),
         onPressed: (){
+          Navigator.pushNamed(context, statsRoute);
         },
       ),
 //        title: Text('Home',style: Theme.of(context).textTheme.headline4,),

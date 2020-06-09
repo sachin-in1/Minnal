@@ -31,7 +31,7 @@ class _MyHomePageState extends State<MyHomePage> {
         elevation: 0,
 //        child:
 //          Container(color:Colors.transparent,
-            child: Image.asset("assets/drawer.png",fit: BoxFit.fill,height: 100,),
+            child: Image.asset("assets/drawer.png",fit: BoxFit.fill,height: 100,width: 100,),
 //          ),
         onPressed: (){
           Navigator.pushNamed(context, statsRoute);

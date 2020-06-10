@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'dart:io';
@@ -59,6 +60,11 @@ class _StatsState extends State<Stats> {
   @override
   void initState() {
     readCounter().then((value){
+//      print(content);
+    setState(() {
+      content= value as String;
+    });
+
       print(content);
     });
     super.initState();
@@ -73,7 +79,7 @@ class _StatsState extends State<Stats> {
     for(var i=0;i<Content.length-1;i++){
       print("blah");
       var temp = MakeListfromList(Content[i]);
-      if(temp!=''){
+      if(temp!=' '){
         FinalList= FinalList + temp;
       }
     }
@@ -90,27 +96,48 @@ class _StatsState extends State<Stats> {
       itemCount: itemCount,
       itemBuilder: (context, position) {
         return Padding(
-          padding: const EdgeInsets.all(8.0),
+          padding: const EdgeInsets.all(18.0),
           child: Card(
-            color: Theme.of(context).backgroundColor,
+            color: Colors.blueAccent,
+//            double.parse(FinalList[position*4+3])<1?Colors.red[(double.parse(FinalList[position*4+3])).floor()*100]:Colors.green[(1/double.parse(FinalList[position*4+3])).floor()*100],
             child: Padding(
+
               padding: const EdgeInsets.all(16.0),
-              child: Wrap(
-                children: [
-                  Row(
-                    children: [
-//                      Text(FinalList[position*4+2], style: TextStyle(fontSize: 10.0),),
-//                      Spacer(),
-                      Text(FinalList[position*4+1], style: TextStyle(fontSize: 20.0),),
-                      Spacer(),
-                      Text(FinalList[position*4].toString().replaceRange(0, 0,'').replaceRange(9, 16, ''), style: TextStyle(fontSize: 10.0),),
-                      Spacer(),
-                    ],
+              child: Flex(
+                direction: Axis.horizontal,
+                children:<Widget>[
+                  Expanded(
+                    flex: 3,
+                    child: Align(
+                      alignment: Alignment.centerLeft,
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [Text(FinalList[position*4+3]+ "KM",
+                              style: TextStyle(fontSize: 15.0),),]),
+                    ),
                   ),
-                ],
+                      Expanded(
+                        flex: 2,
+                        child: Align(
+                          alignment: Alignment.centerRight,
+                          child:Wrap(
+//                            crossAxisAlignment: WrapCrossAlignment.end,
+                            alignment: WrapAlignment.end,
+                          children: <Widget>[
+                                Text(FinalList[position*4], style: TextStyle(fontSize: 10.0),textAlign: TextAlign.right,),
+                                SizedBox(height: 20,),
+                                Text(FinalList[position*4+2], style: TextStyle(fontSize: 10.0),textAlign: TextAlign.right),
+                                SizedBox(height: 20,),
+                            Text(FinalList[position*4+1], style: TextStyle(fontSize: 10.0),textAlign: TextAlign.right),
+                              ],
+                            ),
+                        ),
+                      )
+                    ],
               ),
             ),
-          ),
+        ),
         );
       },
     ),

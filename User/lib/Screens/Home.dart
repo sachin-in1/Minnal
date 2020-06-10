@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'package:Minnal/database/database.dart';
 import 'package:Minnal/Screens/Stats.dart';
-import 'package:Minnal/shared/constants.dart';
+import 'package:intl/intl.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
@@ -48,12 +48,15 @@ import 'dart:io';
 
    Future<File> writeCounter(String counter) async {
      final file = await _localFile;
-     var contents= await readCounter();
-     contents = contents + counter.toString()+ "/";
-     // Write the file.
-     return file.writeAsString('$contents');
+     var contents = await readCounter(
+     );
+     if (counter != "") {
+       contents = contents + counter.toString(
+       ) + "/";
+       // Write the file.
+       return file.writeAsString('$contents');
+     }
    }
-
 
    void startTimer(int _counter) {
      if(_counter%2!=0){
@@ -89,14 +92,21 @@ import 'dart:io';
      }
    }
 
-   void dispose() {
-     _timer.cancel();
-//     super.dispose();
-   }
+//   void dispose() {
+//     _timer.cancel();
+////     super.dispose();
+//   }
 
    @override
 
 
+//   void initState() {
+//    setState(() async {
+//      content= await readCounter();
+//    });
+//
+//     super.initState();
+//   }
 
    Widget build(BuildContext context) {
 
@@ -123,7 +133,7 @@ import 'dart:io';
                  'Location',style: Theme.of(context).textTheme.headline2,
                ),
              ):Spacer(),
-             _long == null || _lat == null?RaisedButton(onPressed: () async{
+             _long == null || _lat == null ?RaisedButton(onPressed: () async{
                final position = await Geolocator().getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
                _lat = position.latitude.toString();
                _long = position.longitude.toString();
@@ -168,35 +178,53 @@ import 'dart:io';
                            ),
                          ),
                          onPressed: () async {
+                           if(_long != null && _lat != null && _counter%2==0){
+                             var contents = await readCounter();
+                             setState(() {
+                               content=contents;
+                             });
+                             print('$_counter: , $content');}
                            setState(() {
                            _counter++;
                            startTimer(_counter);
-                           if(_counter==2){
+                           if(_counter%2==0){
                              _counter=0;
-                             if(_long == 0.0 || _lat == 0.0){
+                             if(_long == null || _lat == null){
+
                               Expanded(child:Text("Please Turn on your location"));
 
                               print("evidee");
                              }
                              else{
                                var distance=time*344/1000000;
-//                               writeCounter('');
+
                                var timenow =DateTime.now();
+
+                               var dat = timenow.day;
+                               var date = dat>9?'$dat':'0$dat';
+                               var days=['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+                               var day = days[timenow.weekday];
+                               var mont = timenow.month;
+                               var month = mont>9?'$mont':'0$mont';
+                               var year = timenow.year;
+                               var datee = '$date.$month.$year';
+                               var hou = timenow.hour > 12?timenow.hour-12:timenow.hour;
+                               var hour=hou>9?hou.toString():'0$hou';
+                               var ampm = timenow.hour > 12? 'PM': 'AM';
+                               var minutes = timenow.minute;
+                               var timm = (minutes > 9)?'$minutes':'0$minutes';
+                               var timefull = hour +":" +timm+" " + ampm;
 //                               writeCounter('');
-                               writeCounter('$_lat,$_long,$distance Km,$timenow');
-                               print("bleh");
-//                               addInfo(_lat,_long,(time*344/1000000).toString());
+                               writeCounter('$distance,$day,$datee,$timefull');
+//                               print("bleh");
+                               addInfo(_lat,_long,(time*344/1000000).toString());
+
                              }
                             //  print(time*344/100000);
 
                            }
                          });
                            if(_counter%2==0){
-                           var contents = await readCounter();
-                           setState(() {
-                             content=contents;
-                           });
-//                           print('$_counter: , $content');
                          }
                            },
                          color: Colors.black,

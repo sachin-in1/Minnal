@@ -83,7 +83,7 @@ class _StatsState extends State<Stats> {
     FinalList=FinalList.reversed.toList();
     print(FinalList.length);
 
-    return Scaffold(backgroundColor: Colors.black,
+    return Scaffold(backgroundColor: Colors.blue,
     body: Center(child:
 //    Text("hi ")
     ListView.builder(

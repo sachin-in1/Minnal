@@ -127,7 +127,7 @@ import 'dart:io';
                final position = await Geolocator().getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
                _lat = position.latitude.toString();
                _long = position.longitude.toString();
-              //  print(position.altitude);
+               print(position.altitude);
              },
              child: Text("Add Location"),
              ):
@@ -135,7 +135,7 @@ import 'dart:io';
              Expanded(
                flex: 1,
                child: Text(
-                 'Minnal',style: Theme.of(context).textTheme.headline2,
+                 'Lightning',style: Theme.of(context).textTheme.headline2,
                ),
              ),
              _counter%2==0?Expanded(child:Text((time*344/1000000).toString()+" Kilometers Away")):
@@ -173,10 +173,52 @@ import 'dart:io';
                            startTimer(_counter);
                            if(_counter==2){
                              _counter=0;
-                             if(_long == 0.0 || _lat == 0.0){
-                              Expanded(child:Text("Please Turn on your location"));
+                             if(_long == null || _lat == null){
+                              // Expanded(child:Text("Please Turn on your location"));
 
                               print("evidee");
+                              showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+        title: Text('Location Not Added'),
+        content: SingleChildScrollView(
+          child: ListBody(
+            children: <Widget>[
+              Text('Please add a location'),
+              // Text('Would you like to approve of this message?'),
+            ],
+          ),
+        ),
+        actions: <Widget>[
+          FlatButton(
+            child: Text('Home'),
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+          ),
+        ],
+      );
+      });
+      //                        AlertDialog(
+      //   title: Text('AlertDialog Title'),
+      //   content: SingleChildScrollView(
+      //     child: ListBody(
+      //       children: <Widget>[
+      //         Text('This is a demo alert dialog.'),
+      //         Text('Would you like to approve of this message?'),
+      //       ],
+      //     ),
+      //   ),
+      //   actions: <Widget>[
+      //     FlatButton(
+      //       child: Text('Approve'),
+      //       onPressed: () {
+      //         Navigator.of(context).pop();
+      //       },
+      //     ),
+      //   ],
+      // );
                              }
                              else{
                                var distance=time*344/1000000;

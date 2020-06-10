@@ -90,12 +90,6 @@ class _StatsState extends State<Stats> {
     ListView.builder(
       itemCount: itemCount,
       itemBuilder: (context, position) {
-//        if(position==0){
-//          Container(
-//            child:Text("hii",style: TextStyle(color: Colors.white),)
-//          );
-//        }
-//        else{
         return Padding(
           padding: const EdgeInsets.all(18.0),
           child: Card(
@@ -143,7 +137,6 @@ class _StatsState extends State<Stats> {
 //        }
       },
     ),
-//      ]
     )
     );
   }

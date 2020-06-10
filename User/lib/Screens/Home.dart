@@ -92,6 +92,11 @@ import 'dart:io';
      }
    }
 
+//   void dispose() {
+//     _timer.cancel();
+////     super.dispose();
+//   }
+
    @override
 
    void initState() {

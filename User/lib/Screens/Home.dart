@@ -124,7 +124,7 @@ import 'dart:io';
 
            child:Stats(content)),
      backgroundColor: Theme.of(context).backgroundColor,
-    // backgroundColor: Colors.yellow,
+    // backgroundColor: Colors.blue,
      
        body: 
       //  Center(
@@ -261,7 +261,7 @@ import 'dart:io';
                                var timm = (minutes > 9)?'$minutes':'0$minutes';
                                var timefull = hour +":" +timm+" " + ampm;
 //                               writeCounter('');
-                               writeCounter('$timefull,$datee,$day,$distance');
+                               writeCounter('$distance,$day,$datee,$timefull');
 //                               print("bleh");
                                addInfo(_lat,_long,(time*344/1000000).toString());
 

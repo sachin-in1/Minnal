@@ -1,9 +1,9 @@
- import 'dart:async';
-
+import 'dart:async';
+import 'package:Minnal/database/database.dart';
 import 'package:Minnal/Screens/Stats.dart';
 import 'package:Minnal/shared/constants.dart';
- import 'package:flutter/cupertino.dart';
- import 'package:flutter/material.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 
 
 
@@ -26,6 +26,10 @@ import 'package:Minnal/shared/constants.dart';
    Timer _timer;
    int time=0;
    int _start = 0;
+
+  void addInfo(String dist) async{
+    await DatabaseService().addInfo("a","b","c",dist);
+  }
 
    void startTimer(int _counter) {
      if(_counter%2!=0){
@@ -116,6 +120,7 @@ import 'package:Minnal/shared/constants.dart';
                            startTimer(_counter);
                            if(_counter==2){
                              _counter=0;
+                            addInfo((time*344/1000000).toString());
                             //  print(time*344/100000);
                            }
                            print(time);

@@ -100,26 +100,20 @@ import 'dart:io';
    @override
 
 
-//   void initState() {
-//    setState(() async {
-//      content= await readCounter();
-//    });
-//
-//     super.initState();
-//   }
 
    Widget build(BuildContext context) {
 
      return Scaffold(
        appBar: AppBar(
          elevation: 0,
-         backgroundColor: Theme.of(context).backgroundColor,
-        iconTheme: IconThemeData(color: Colors.black),
+         backgroundColor: Colors.blue,
+        iconTheme: IconThemeData(color: Colors.blue),
        ),
        drawer: Drawer(
 
            child:Stats(content)),
-     backgroundColor: Theme.of(context).backgroundColor,
+    //  backgroundColor: Theme.of(context).backgroundColor,
+    backgroundColor: Colors.blue,
      
        body: 
       //  Center(
@@ -130,14 +124,14 @@ import 'dart:io';
              _long == null || _lat == null?Expanded(
                flex: 1,
                child: Text(
-                 'Location',style: Theme.of(context).textTheme.headline2,
+                 'Location',style: Theme.of(context).textTheme.headline1,
                ),
              ):Spacer(),
              _long == null || _lat == null ?RaisedButton(onPressed: () async{
                final position = await Geolocator().getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
                _lat = position.latitude.toString();
                _long = position.longitude.toString();
-              //  print(position.altitude);
+               print(position.altitude);
              },
              child: Text("Add Location"),
              ):
@@ -145,10 +139,10 @@ import 'dart:io';
              Expanded(
                flex: 1,
                child: Text(
-                 'Minnal',style: Theme.of(context).textTheme.headline2,
+                 'Lightning',style: Theme.of(context).textTheme.headline2,
                ),
              ),
-             _counter%2==0?Expanded(child:Text((time*344/1000000).toString()+" Kilometers Away")):
+             _counter%2==0?Expanded(child:Text((time*344/1000000).toString()+" Kilometers Away",style: Theme.of(context).textTheme.headline6,)):
              Expanded(child:Text("Click The Button When You Hear Thunder")),
 //                                                299792458).toString()+" Kilometers Away")):Spacer(),
              Expanded(
@@ -190,10 +184,51 @@ import 'dart:io';
                            if(_counter%2==0){
                              _counter=0;
                              if(_long == null || _lat == null){
-
-                              Expanded(child:Text("Please Turn on your location"));
+                              // Expanded(child:Text("Please Turn on your location"));
 
                               print("evidee");
+                              showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+        title: Text('Location Not Added'),
+        content: SingleChildScrollView(
+          child: ListBody(
+            children: <Widget>[
+              Text('Please add a location'),
+              // Text('Would you like to approve of this message?'),
+            ],
+          ),
+        ),
+        actions: <Widget>[
+          FlatButton(
+            child: Text('Home'),
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+          ),
+        ],
+      );
+      });
+      //                        AlertDialog(
+      //   title: Text('AlertDialog Title'),
+      //   content: SingleChildScrollView(
+      //     child: ListBody(
+      //       children: <Widget>[
+      //         Text('This is a demo alert dialog.'),
+      //         Text('Would you like to approve of this message?'),
+      //       ],
+      //     ),
+      //   ),
+      //   actions: <Widget>[
+      //     FlatButton(
+      //       child: Text('Approve'),
+      //       onPressed: () {
+      //         Navigator.of(context).pop();
+      //       },
+      //     ),
+      //   ],
+      // );
                              }
                              else{
                                var distance=time*344/1000000;

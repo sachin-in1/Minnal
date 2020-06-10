@@ -96,26 +96,19 @@ import 'dart:io';
 
    @override
 
-//   initstate(){
-//    super initstate(){
-//      content =
-//    }/
-//   }
+
 
    Widget build(BuildContext context) {
 
-
-//     print(content);
-//     print(_counter);
      return Scaffold(
        appBar: AppBar(
          elevation: 0,
          backgroundColor: Theme.of(context).backgroundColor,
-         leading: Image.asset('assets/drawer.png'),
+        iconTheme: IconThemeData(color: Colors.black),
        ),
        drawer: Drawer(
-         child: Stats(content),
-       ),
+
+           child:Stats(content)),
      backgroundColor: Theme.of(context).backgroundColor,
      
        body: 
@@ -124,24 +117,21 @@ import 'dart:io';
          Column(
            mainAxisAlignment: MainAxisAlignment.center,
            children: <Widget>[
-             Expanded(
+             _long == null || _lat == null?Expanded(
                flex: 1,
                child: Text(
                  'Location',style: Theme.of(context).textTheme.headline2,
                ),
-             ),
-             RaisedButton(onPressed: () async{
+             ):Spacer(),
+             _long == null || _lat == null?RaisedButton(onPressed: () async{
                final position = await Geolocator().getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
                _lat = position.latitude.toString();
                _long = position.longitude.toString();
               //  print(position.altitude);
              },
              child: Text("Add Location"),
-             ),
-             Spacer(
-               flex: 1,
- //              child:Text("")
-             ),
+             ):
+             Spacer(),
              Expanded(
                flex: 1,
                child: Text(
@@ -183,30 +173,32 @@ import 'dart:io';
                            startTimer(_counter);
                            if(_counter==2){
                              _counter=0;
-                             if(_long == null || _lat == null){
-                              Expanded(child:Text("Please add your location"));
-                              print("ividee");
+                             if(_long == 0.0 || _lat == 0.0){
+                              Expanded(child:Text("Please Turn on your location"));
+
+                              print("evidee");
                              }
                              else{
                                var distance=time*344/1000000;
 //                               writeCounter('');
                                var timenow =DateTime.now();
-                               writeCounter('');
+//                               writeCounter('');
                                writeCounter('$_lat,$_long,$distance Km,$timenow');
+                               print("bleh");
 //                               addInfo(_lat,_long,(time*344/1000000).toString());
                              }
                             //  print(time*344/100000);
 
                            }
-                           print(time);
-
-//                           else{
-//                             startTimer(_counter);
-//                           }
                          });
-                           content = await readCounter();
-                           print(content);
-                         },
+                           if(_counter%2==0){
+                           var contents = await readCounter();
+                           setState(() {
+                             content=contents;
+                           });
+//                           print('$_counter: , $content');
+                         }
+                           },
                          color: Colors.black,
  //                  shape: BoxShape.circle,
                          shape: RoundedRectangleBorder(

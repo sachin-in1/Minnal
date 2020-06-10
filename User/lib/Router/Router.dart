@@ -10,7 +10,9 @@ class Router {
       case homeRoute:
         return MaterialPageRoute(builder: (_) => MyHomePage());
       case statsRoute:
-        return MaterialPageRoute(builder: (_) => Stats(settings.arguments));
+        return MaterialPageRoute(builder: (_) => Stats(
+            settings.arguments
+        ));
       default:
         return MaterialPageRoute(
             builder: (_) => Scaffold(

@@ -39,29 +39,50 @@ List MakeListfromList(content){
   content=content.split(',');
   return content;
 }
-
-class Stats extends StatelessWidget {
+class Stats extends StatefulWidget {
   String content;
   List Content;
   List FinalList=[];
-
-  Stats(this.content);
+  int itemCount;
   @override
+  Stats(this.content);
+  _StatsState createState() => _StatsState(this.content);
+}
+
+class _StatsState extends State<Stats> {
+  String content;
+  List Content;
+  List FinalList=[];
+  int itemCount;
+
+  _StatsState(this.content);
+  @override
+  void initState() {
+    readCounter().then((value){
+      print(content);
+    });
+    super.initState();
+  }
+
+
   Widget build(BuildContext context) {
 //    print()
+
+
     Content = MakeList(content);
     for(var i=0;i<Content.length-1;i++){
       print("blah");
       var temp = MakeListfromList(Content[i]);
       if(temp!=''){
-       FinalList= FinalList + temp;
-    }
+        FinalList= FinalList + temp;
+      }
     }
 
     print(FinalList);
-    int itemCount = (FinalList.length/4).floor();
+    itemCount = (FinalList.length/4).floor();
     FinalList=FinalList.reversed.toList();
     print(FinalList.length);
+
     return Scaffold(backgroundColor: Colors.black,
     body: Center(child:
 //    Text("hi ")

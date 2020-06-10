@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:minnal_admin/download.dart';
 
 void main() {
   runApp(MyApp());
@@ -79,7 +80,7 @@ class _MyHomePageState extends State<MyHomePage> {
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
+        onPressed: (){DownloadService();},
         tooltip: 'Increment',
         child: Icon(Icons.add),
       ), // This trailing comma makes auto-formatting nicer for build methods.

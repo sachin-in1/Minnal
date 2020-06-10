@@ -17,12 +17,6 @@ import 'package:flutter/material.dart';
 
  class _MyHomePageState extends State<MyHomePage> {
    int _counter = 0;
-
-//   void changeImage() {
-//     setState(() {
-//       _counter++;
-//     });
-//   }
    Timer _timer;
    int time=0;
    int _start = 0;

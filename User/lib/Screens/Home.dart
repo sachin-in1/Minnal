@@ -103,13 +103,14 @@ import 'dart:io';
      return Scaffold(
        appBar: AppBar(
          elevation: 0,
-         backgroundColor: Theme.of(context).backgroundColor,
-        iconTheme: IconThemeData(color: Colors.black),
+         backgroundColor: Colors.blue,
+        iconTheme: IconThemeData(color: Colors.blue),
        ),
        drawer: Drawer(
 
            child:Stats(content)),
-     backgroundColor: Theme.of(context).backgroundColor,
+    //  backgroundColor: Theme.of(context).backgroundColor,
+    backgroundColor: Colors.blue,
      
        body: 
       //  Center(
@@ -120,7 +121,7 @@ import 'dart:io';
              _long == null || _lat == null?Expanded(
                flex: 1,
                child: Text(
-                 'Location',style: Theme.of(context).textTheme.headline2,
+                 'Location',style: Theme.of(context).textTheme.headline1,
                ),
              ):Spacer(),
              _long == null || _lat == null?RaisedButton(onPressed: () async{
@@ -138,7 +139,7 @@ import 'dart:io';
                  'Lightning',style: Theme.of(context).textTheme.headline2,
                ),
              ),
-             _counter%2==0?Expanded(child:Text((time*344/1000000).toString()+" Kilometers Away")):
+             _counter%2==0?Expanded(child:Text((time*344/1000000).toString()+" Kilometers Away",style: Theme.of(context).textTheme.headline6,)):
              Expanded(child:Text("Click The Button When You Hear Thunder")),
 //                                                299792458).toString()+" Kilometers Away")):Spacer(),
              Expanded(

@@ -14,11 +14,11 @@ class Home extends StatelessWidget {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-        title: Text('The file is downloaded'),
+        title: Text('Downloading task completed.'),
         content: SingleChildScrollView(
           child: ListBody(
             children: <Widget>[
-              Text('check Downloads(file_name.csv)'),
+              Text('Please check Downloads (file_name.csv)'),
               // Text('Would you like to approve of this message?'),
             ],
           ),

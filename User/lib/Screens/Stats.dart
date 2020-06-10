@@ -9,7 +9,7 @@ class Stats extends StatelessWidget {
     return Scaffold(backgroundColor: Colors.green,
     body: Center(child: RaisedButton(onPressed: () async{
       final position = await Geolocator().getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
-      print(position.altitude);  
+      print(position);  
     },),),
     );
   }

@@ -1,5 +1,6 @@
  import 'dart:async';
 
+import 'package:Minnal/Screens/Stats.dart';
 import 'package:Minnal/shared/constants.dart';
  import 'package:flutter/cupertino.dart';
  import 'package:flutter/material.dart';
@@ -56,27 +57,18 @@ import 'package:Minnal/shared/constants.dart';
    Widget build(BuildContext context) {
 //     print(_counter);
      return Scaffold(
-     backgroundColor: Theme.of(context).backgroundColor,
        appBar: AppBar(
-       leading: MaterialButton(
- //        color: Colors.transparent,
- //        splashColor: null,
-         elevation: 0,
- //        child:
- //          Container(color:Colors.transparent,
-             child: Image.asset("assets/drawer.png",fit: BoxFit.fill,height: 100,width: 100,),
- //          ),
-         onPressed: (){
-           Navigator.pushNamed(context, statsRoute);
-         },
+         backgroundColor: Theme.of(context).backgroundColor,
        ),
- //        title: Text('Home',style: Theme.of(context).textTheme.headline4,),
-         elevation: 0,
-         backgroundColor: Colors.transparent,
+       drawer: Drawer(
+         child: Stats(),
        ),
- //      drawer: Drawer(),
-       body: Center(
-         child: Column(
+     backgroundColor: Theme.of(context).backgroundColor,
+     
+       body: 
+      //  Center(
+        //  child: 
+         Column(
            mainAxisAlignment: MainAxisAlignment.center,
            children: <Widget>[
              Spacer(
@@ -89,7 +81,7 @@ import 'package:Minnal/shared/constants.dart';
                  'Minnal',style: Theme.of(context).textTheme.headline2,
                ),
              ),
-             _counter%2==0?Expanded(child:Text((time*340/1000000).toString()+" Kilometers Away")):
+             _counter%2==0?Expanded(child:Text((time*344/1000000).toString()+" Kilometers Away")):
              Expanded(child:Text("Click The Button When You Hear Thunder")),
 //                                                299792458).toString()+" Kilometers Away")):Spacer(),
              Expanded(
@@ -124,6 +116,7 @@ import 'package:Minnal/shared/constants.dart';
                            startTimer(_counter);
                            if(_counter==2){
                              _counter=0;
+                            //  print(time*344/100000);
                            }
                            print(time);
 //                           else{
@@ -146,7 +139,8 @@ import 'package:Minnal/shared/constants.dart';
 
            ],
          ),
-       ),
+      //  ),
+      //  drawer: Drawer(),
      );
    }
  }

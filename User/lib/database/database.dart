@@ -6,7 +6,7 @@ final CollectionReference infoCollection =
                           Firestore.instance.collection('info');
 
 
-Future<void> addInfo(String long,String lat,String time,String dist) async{
+Future<void> addInfo(String long,String lat,String dist) async{
   await infoCollection.document().setData({
     'long': long,
     'lat': lat,

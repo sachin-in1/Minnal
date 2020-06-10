@@ -13,6 +13,7 @@ import 'dart:io';
  class MyHomePage extends StatefulWidget {
    MyHomePage({Key key, this.title}) : super(key: key);
    final String title;
+   final String content="";
 
    @override
    _MyHomePageState createState() => _MyHomePageState();
@@ -25,6 +26,7 @@ import 'dart:io';
    Timer _timer;
    int time=0;
    int _start = 0;
+   String content="";
 
   void addInfo(String lat,String long,String dist) async{
         await DatabaseService().addInfo(lat,long,dist);
@@ -47,9 +49,8 @@ import 'dart:io';
    Future<File> writeCounter(String counter) async {
      final file = await _localFile;
      var contents= await readCounter();
-     contents = contents + counter.toString()+ ":";
+     contents = contents + counter.toString()+ "/";
      // Write the file.
-     print('content : $contents');
      return file.writeAsString('$contents');
    }
 
@@ -95,7 +96,16 @@ import 'dart:io';
 
    @override
 
+//   initstate(){
+//    super initstate(){
+//      content =
+//    }/
+//   }
+
    Widget build(BuildContext context) {
+
+
+//     print(content);
 //     print(_counter);
      return Scaffold(
        appBar: AppBar(
@@ -104,7 +114,7 @@ import 'dart:io';
          leading: Image.asset('assets/drawer.png'),
        ),
        drawer: Drawer(
-         child: Stats(),
+         child: Stats(content),
        ),
      backgroundColor: Theme.of(context).backgroundColor,
      
@@ -167,7 +177,7 @@ import 'dart:io';
                              ),
                            ),
                          ),
-                         onPressed: (){
+                         onPressed: () async {
                            setState(() {
                            _counter++;
                            startTimer(_counter);
@@ -180,17 +190,22 @@ import 'dart:io';
                              else{
                                var distance=time*344/1000000;
 //                               writeCounter('');
-                               writeCounter('$_lat,$_long,$distance Km');
+                               var timenow =DateTime.now();
+                               writeCounter('');
+                               writeCounter('$_lat,$_long,$distance Km,$timenow');
 //                               addInfo(_lat,_long,(time*344/1000000).toString());
                              }
-
                             //  print(time*344/100000);
+
                            }
                            print(time);
+
 //                           else{
 //                             startTimer(_counter);
 //                           }
                          });
+                           content = await readCounter();
+                           print(content);
                          },
                          color: Colors.black,
  //                  shape: BoxShape.circle,

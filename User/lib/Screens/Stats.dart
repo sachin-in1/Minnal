@@ -31,11 +31,69 @@ Future<String> readCounter() async {
   }
 }
 
+List MakeList(content){
+  content=content.split('/');
+  return content;
+}
+List MakeListfromList(content){
+  content=content.split(',');
+  return content;
+}
+
 class Stats extends StatelessWidget {
+  String content;
+  List Content;
+  List FinalList=[];
+
+  Stats(this.content);
   @override
   Widget build(BuildContext context) {
-    return Scaffold(backgroundColor: Colors.green,
-    body: Text("contents in future")
+//    print()
+    Content = MakeList(content);
+    for(var i=0;i<Content.length-1;i++){
+      print("blah");
+      var temp = MakeListfromList(Content[i]);
+      if(temp!=''){
+       FinalList= FinalList + temp;
+    }
+    }
+
+    print(FinalList);
+    int itemCount = (FinalList.length/4).floor();
+    FinalList=FinalList.reversed.toList();
+    print(FinalList.length);
+    return Scaffold(backgroundColor: Colors.black,
+    body: Center(child:
+//    Text("hi ")
+    ListView.builder(
+      itemCount: itemCount,
+      itemBuilder: (context, position) {
+        return Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Card(
+            color: Theme.of(context).backgroundColor,
+            child: Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: Wrap(
+                children: [
+                  Row(
+                    children: [
+//                      Text(FinalList[position*4+2], style: TextStyle(fontSize: 10.0),),
+//                      Spacer(),
+                      Text(FinalList[position*4+1], style: TextStyle(fontSize: 20.0),),
+                      Spacer(),
+                      Text(FinalList[position*4].toString().replaceRange(0, 0,'').replaceRange(9, 16, ''), style: TextStyle(fontSize: 10.0),),
+                      Spacer(),
+                    ],
+                  ),
+                ],
+              ),
+            ),
+          ),
+        );
+      },
+    ),
+    )
     );
   }
 }

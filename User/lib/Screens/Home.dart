@@ -5,6 +5,8 @@ import 'package:Minnal/shared/constants.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:path_provider/path_provider.dart';
+import 'dart:io';
 
 
 
@@ -18,13 +20,6 @@ import 'package:geolocator/geolocator.dart';
 
  class _MyHomePageState extends State<MyHomePage> {
    int _counter = 0;
-
-//   void changeImage() {
-//     setState(() {
-//       _counter++;
-//     });
-//   }
-    // var _position = null;4
     String _lat;
     String _long;
    Timer _timer;
@@ -34,6 +29,30 @@ import 'package:geolocator/geolocator.dart';
   void addInfo(String lat,String long,String dist) async{
         await DatabaseService().addInfo(lat,long,dist);
   }
+
+   Future<String> get _localPath async {
+     Directory appDocDir = await getApplicationDocumentsDirectory();
+     String appDocPath = appDocDir.path;
+     //     final directory = await getApplicationDocumentsDirectory();
+//
+     return appDocPath;
+   }
+
+   Future<File> get _localFile async {
+     final path = await _localPath;
+//     print('$path');
+     return File('$path/counter.txt');
+   }
+
+   Future<File> writeCounter(String counter) async {
+     final file = await _localFile;
+     var contents= await readCounter();
+     contents = contents + counter.toString()+ ":";
+     // Write the file.
+     print('content : $contents');
+     return file.writeAsString('$contents');
+   }
+
 
    void startTimer(int _counter) {
      if(_counter%2!=0){
@@ -55,6 +74,20 @@ import 'package:geolocator/geolocator.dart';
        _timer.cancel();
      }
    }
+
+   Future<String> readCounter() async {
+     try {
+       final file = await _localFile;
+
+       // Read the file.
+       String contents = await file.readAsString();
+       return '$contents';
+     } catch (e) {
+       // If encountering an error, return 0.
+       return "";
+     }
+   }
+
    void dispose() {
      _timer.cancel();
 //     super.dispose();
@@ -66,7 +99,9 @@ import 'package:geolocator/geolocator.dart';
 //     print(_counter);
      return Scaffold(
        appBar: AppBar(
+         elevation: 0,
          backgroundColor: Theme.of(context).backgroundColor,
+         leading: Image.asset('assets/drawer.png'),
        ),
        drawer: Drawer(
          child: Stats(),
@@ -143,7 +178,10 @@ import 'package:geolocator/geolocator.dart';
                               print("ividee");
                              }
                              else{
-                               addInfo(_lat,_long,(time*344/1000000).toString());
+                               var distance=time*344/1000000;
+//                               writeCounter('');
+                               writeCounter('$_lat,$_long,$distance Km');
+//                               addInfo(_lat,_long,(time*344/1000000).toString());
                              }
 
                             //  print(time*344/100000);

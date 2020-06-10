@@ -92,11 +92,6 @@ import 'dart:io';
      }
    }
 
-//   void dispose() {
-//     _timer.cancel();
-////     super.dispose();
-//   }
-
    @override
 
    void initState() {
@@ -117,45 +112,97 @@ import 'dart:io';
      return Scaffold(
        appBar: AppBar(
          elevation: 0,
-         backgroundColor: Colors.blue,
-        iconTheme: IconThemeData(color: Colors.blue),
+         backgroundColor: Theme.of(context).backgroundColor,
+        iconTheme: IconThemeData(color: Colors.black),
        ),
        drawer: Drawer(
 
            child:Stats(content)),
-    //  backgroundColor: Theme.of(context).backgroundColor,
-    backgroundColor: Colors.blue,
+      backgroundColor: Theme.of(context).backgroundColor,
+//    backgroundColor: Colors.blue,
      
        body: 
       //  Center(
         //  child: 
          Column(
            mainAxisAlignment: MainAxisAlignment.center,
+           crossAxisAlignment: CrossAxisAlignment.center,
            children: <Widget>[
-             _long == null || _lat == null?Expanded(
+             Spacer(
                flex: 1,
-               child: Text(
-                 'Location',style: Theme.of(context).textTheme.headline1,
-               ),
-             ):Spacer(),
-             _long == null || _lat == null ?RaisedButton(onPressed: () async{
-               final position = await Geolocator().getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
-               _lat = position.latitude.toString();
-               _long = position.longitude.toString();
-               print(position.altitude);
-             },
-             child: Text("Add Location"),
-             ):
-             Spacer(),
+             ),
              Expanded(
                flex: 1,
                child: Text(
                  'Lightning',style: Theme.of(context).textTheme.headline2,
                ),
              ),
-             _counter%2==0?Expanded(child:Text((time*344/1000000).toString()+" Kilometers Away",style: Theme.of(context).textTheme.headline6,)):
+             _long == null || _lat == null?Expanded(
+               flex: 1,
+               child: Text(
+                 'Enable Location',style: Theme.of(context).textTheme.headline6,
+               ),
+             ):_counter%2==0?
+             Expanded(child:Text((time*344/1000000).toString()+" Kilometers Away",style: Theme.of(context).textTheme.headline6,))
+                 :
              Expanded(child:Text("Click The Button When You Hear Thunder")),
-//                                                299792458).toString()+" Kilometers Away")):Spacer(),
+             _long == null || _lat == null ?
+             Expanded(
+               flex: 4,
+//               child: Container(
+                 child: Row(
+                     mainAxisAlignment: MainAxisAlignment.center
+                     ,
+                     children: [
+                 Container(
+                 width: MediaQuery.of(context).size.width*0.8,
+               height: MediaQuery.of(context).size.width*0.8,
+                     child: RaisedButton(elevation: 10,
+                       child:Padding(
+                         padding: const EdgeInsets.all(8.0),
+                         child: Center(
+                           child:
+//                           _counter%2==0?
+                           Column(
+                             crossAxisAlignment: CrossAxisAlignment.center,
+                             mainAxisAlignment: MainAxisAlignment.center,
+                             children: [
+                               Image.asset('assets/map.png',height: MediaQuery.of(context).size.width*0.35,),
+                               SizedBox(height:MediaQuery.of(context).size.width*0.15,
+                               child: Text(""),)
+                             ],
+                           )
+//                               :
+//                           Column(
+//                             crossAxisAlignment: CrossAxisAlignment.stretch,
+//                             children: [
+//                               Image.asset('assets/idi.png',fit: BoxFit.cover,),
+//                             ],
+                           ),
+//                         ),
+                       ),
+                       onPressed: () async{
+                       final position = await Geolocator().getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
+                       setState(() {
+                         _lat = position.latitude.toString();
+                         _long = position.longitude.toString();
+
+                       });
+                       print(position.altitude);
+                     },
+                         color: Colors.black,
+                         //                  shape: BoxShape.circle,
+                            shape : RoundedRectangleBorder(
+                         borderRadius:BorderRadius.circular(MediaQuery.of(context).size.width*0.8),
+     )
+//                       child: Text("Add Location"),
+                     ),
+
+                 )
+                   ],
+                 ),
+
+                 ):
              Expanded(
                flex: 4,
                child: Row(
@@ -183,12 +230,6 @@ import 'dart:io';
                            ),
                          ),
                          onPressed: () async {
-                           if(_long != null && _lat != null && _counter%2==0){
-                             var contents = await readCounter();
-                             setState(() {
-                               content=contents;
-                             });
-                             print('$_counter: , $content');}
                            setState(() {
                            _counter++;
                            startTimer(_counter);
@@ -221,25 +262,6 @@ import 'dart:io';
         ],
       );
       });
-      //                        AlertDialog(
-      //   title: Text('AlertDialog Title'),
-      //   content: SingleChildScrollView(
-      //     child: ListBody(
-      //       children: <Widget>[
-      //         Text('This is a demo alert dialog.'),
-      //         Text('Would you like to approve of this message?'),
-      //       ],
-      //     ),
-      //   ),
-      //   actions: <Widget>[
-      //     FlatButton(
-      //       child: Text('Approve'),
-      //       onPressed: () {
-      //         Navigator.of(context).pop();
-      //       },
-      //     ),
-      //   ],
-      // );
                              }
                              else{
                                var distance=time*344/1000000;
@@ -270,8 +292,15 @@ import 'dart:io';
 
                            }
                          });
-                           if(_counter%2==0){
-                         }
+                           if(_long != null && _lat != null && _counter%2==0){
+                             var contents = await readCounter();
+                             setState(() {
+                               content=contents;
+                             });
+                             print(content);
+                           }
+//                           if(_counter%2==0){
+//                         }
                            },
                          color: Colors.black,
  //                  shape: BoxShape.circle,

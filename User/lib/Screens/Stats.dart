@@ -78,16 +78,28 @@ class _StatsState extends State<Stats> {
     FinalList=FinalList.reversed.toList();
     print(FinalList.length);
     
-    return Scaffold(backgroundColor: Colors.blue,
-    body: Center(child:
+    return Scaffold(backgroundColor: Color(0xff383838),
+    body: Container(
+      decoration: BoxDecoration(
+          gradient: LinearGradient(
+              begin: Alignment.topRight,
+              end: Alignment.bottomLeft,
+              colors: [Color(0xfff2d229), Colors.cyan])),
+      child:
 //    Text("hi ")
     ListView.builder(
       itemCount: itemCount,
       itemBuilder: (context, position) {
+//        if(position==0){
+//          Container(
+//            child:Text("hii",style: TextStyle(color: Colors.white),)
+//          );
+//        }
+//        else{
         return Padding(
           padding: const EdgeInsets.all(18.0),
           child: Card(
-            color: Colors.blueAccent,
+//            color: Colors.blueAccent,
 //            double.parse(FinalList[position*4+3])<1?Colors.red[(double.parse(FinalList[position*4+3])).floor()*100]:Colors.green[(1/double.parse(FinalList[position*4+3])).floor()*100],
             child: Padding(
 
@@ -96,13 +108,13 @@ class _StatsState extends State<Stats> {
                 direction: Axis.horizontal,
                 children:<Widget>[
                   Expanded(
-                    flex: 3,
+                    flex: 4,
                     child: Align(
                       alignment: Alignment.centerLeft,
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.start,
                         crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [Text(FinalList[position*4+3]+ "KM",
+                        children: [Text(FinalList[position*4+3]+ " Km Away",
                               style: TextStyle(fontSize: 15.0),),]),
                     ),
                   ),
@@ -128,8 +140,10 @@ class _StatsState extends State<Stats> {
             ),
         ),
         );
+//        }
       },
     ),
+//      ]
     )
     );
   }

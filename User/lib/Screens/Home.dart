@@ -106,14 +106,14 @@ import 'dart:io';
      return Scaffold(
        appBar: AppBar(
          elevation: 0,
-         backgroundColor: Colors.blue,
+         backgroundColor: Theme.of(context).backgroundColor,
         iconTheme: IconThemeData(color: Colors.blue),
        ),
        drawer: Drawer(
 
            child:Stats(content)),
-    //  backgroundColor: Theme.of(context).backgroundColor,
-    backgroundColor: Colors.blue,
+     backgroundColor: Theme.of(context).backgroundColor,
+    // backgroundColor: Colors.yellow,
      
        body: 
       //  Center(
@@ -250,7 +250,7 @@ import 'dart:io';
                                var timm = (minutes > 9)?'$minutes':'0$minutes';
                                var timefull = hour +":" +timm+" " + ampm;
 //                               writeCounter('');
-                               writeCounter('$distance,$day,$datee,$timefull');
+                               writeCounter('$timefull,$datee,$day,$distance');
 //                               print("bleh");
                                addInfo(_lat,_long,(time*344/1000000).toString());
 

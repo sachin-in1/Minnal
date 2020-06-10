@@ -17,13 +17,12 @@ class DownloadService {
     if (await Permission.storage.request().isGranted) {
       String dir = '/storage/emulated/0/download/';
       String file = "$dir";
-      File f = new File(file + "filename.csv");
+      File f = new File(file + "report.csv");
 
 // convert rows to String and write as csv file
 
       String csv = const ListToCsvConverter().convert(rows);
       f.writeAsString(csv);
-      
     }
   }
 

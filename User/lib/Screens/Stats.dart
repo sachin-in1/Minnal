@@ -58,17 +58,6 @@ class _StatsState extends State<Stats> {
 
   _StatsState(this.content);
   @override
-  void initState() {
-    readCounter().then((value){
-//      print(content);
-    setState(() {
-      content= value as String;
-    });
-
-      print(content);
-    });
-    super.initState();
-  }
 
 
   Widget build(BuildContext context) {

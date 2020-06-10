@@ -99,6 +99,17 @@ import 'dart:io';
 
    @override
 
+   void initState() {
+     readCounter().then((value){
+//      print(content);
+       setState(() {
+         content= value;
+       });
+
+       print(content);
+     });
+     super.initState();
+   }
 
 
    Widget build(BuildContext context) {

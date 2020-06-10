@@ -4,6 +4,7 @@ import 'package:Minnal/Screens/Stats.dart';
 import 'package:Minnal/shared/constants.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:geolocator/geolocator.dart';
 
 
 
@@ -17,12 +18,21 @@ import 'package:flutter/material.dart';
 
  class _MyHomePageState extends State<MyHomePage> {
    int _counter = 0;
+
+//   void changeImage() {
+//     setState(() {
+//       _counter++;
+//     });
+//   }
+    // var _position = null;4
+    String _lat;
+    String _long;
    Timer _timer;
    int time=0;
    int _start = 0;
 
-  void addInfo(String dist) async{
-    await DatabaseService().addInfo("a","b","c",dist);
+  void addInfo(String lat,String long,String dist) async{
+        await DatabaseService().addInfo(lat,long,dist);
   }
 
    void startTimer(int _counter) {
@@ -69,8 +79,22 @@ import 'package:flutter/material.dart';
          Column(
            mainAxisAlignment: MainAxisAlignment.center,
            children: <Widget>[
+             Expanded(
+               flex: 1,
+               child: Text(
+                 'Location',style: Theme.of(context).textTheme.headline2,
+               ),
+             ),
+             RaisedButton(onPressed: () async{
+               final position = await Geolocator().getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
+               _lat = position.latitude.toString();
+               _long = position.longitude.toString();
+              //  print(position.altitude);
+             },
+             child: Text("Add Location"),
+             ),
              Spacer(
-               flex: 2,
+               flex: 1,
  //              child:Text("")
              ),
              Expanded(
@@ -114,7 +138,14 @@ import 'package:flutter/material.dart';
                            startTimer(_counter);
                            if(_counter==2){
                              _counter=0;
-                            addInfo((time*344/1000000).toString());
+                             if(_long == null || _lat == null){
+                              Expanded(child:Text("Please add your location"));
+                              print("ividee");
+                             }
+                             else{
+                               addInfo(_lat,_long,(time*344/1000000).toString());
+                             }
+
                             //  print(time*344/100000);
                            }
                            print(time);

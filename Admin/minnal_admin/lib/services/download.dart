@@ -28,14 +28,23 @@ class DownloadService {
 
   List<List> _convertToList(QuerySnapshot q) {
     List<List> rows = [];
-    rows.add(["Distance", "Latitude", "Longitude", "Time"]);
+    rows.add(["Distance", "Latitude", "Longitude", "Time","Date"]);
     q.documents.forEach((element) {
       List<String> row = [];
       row.add(element.data["dist"]);
       row.add(element.data["lat"]);
       row.add(element.data["long"]);
-      row.add(element.data["time"].toString());
+      DateTime a = element.data["time"].toDate();
+      String da = a.day.toString() + "-" + a.month.toString() + "-" + a.year.toString();
+      String ti = a.hour.toString() +  ":" + a.minute.toString() + ":" + a.second.toString();
+      row.add(ti);
+      row.add(da);
       rows.add(row);
+      // row.add(element.data["time"].toDate().getDate().toString());
+      // ;
+      
+      // print();
+      // String formattedDate = dateFormat('yyyy-MM-dd – kk:mm').format(a).toString();
     });
     return rows;
   }

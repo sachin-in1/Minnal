@@ -148,7 +148,7 @@ import 'dart:io';
                  'Enable Location',style: Theme.of(context).textTheme.headline6,
                ),
              ):_counter%2==0?
-             Expanded(child:Text((time*344/1000000).toString()+" Kilometers Away",style: Theme.of(context).textTheme.headline6,))
+             Expanded(child:Text((time*344/1000000).toString()+" Kilometers Away",style: TextStyle(height: 2, fontSize: 27),))
                  :
              Expanded(child:Text("Click The Button When You Hear Thunder",style: TextStyle(height: 2, fontSize: 18))),
              _long == null || _lat == null ?

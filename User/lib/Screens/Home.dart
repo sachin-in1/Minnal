@@ -8,7 +8,8 @@ import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:path_provider/path_provider.dart';
 import 'dart:io';
-
+import 'package:audioplayers/audio_cache.dart';
+import 'package:audioplayers/audioplayers.dart';
 
 
  class MyHomePage extends StatefulWidget {
@@ -21,6 +22,7 @@ import 'dart:io';
  }
 
  class _MyHomePageState extends State<MyHomePage> {
+   AudioCache _audioCache;
    int _counter = 0;
     String _lat;
     String _long;
@@ -29,6 +31,10 @@ import 'dart:io';
    int _start = 0;
    String content="";
    bool clicked;
+
+  void playAudioo(){
+    _audioCache.play('1.mp3');
+  }
 
   void addInfo(String lat,String long,String dist) async{
         await DatabaseService().addInfo(lat,long,dist);
@@ -112,6 +118,7 @@ import 'dart:io';
      });
      clicked = false;
      super.initState();
+     _audioCache = AudioCache(prefix: "audio/", fixedPlayer: AudioPlayer()..setReleaseMode(ReleaseMode.STOP));
    }
 
 
@@ -223,6 +230,7 @@ import 'dart:io';
 //                         ),
                        ),
                        onPressed: () async{
+                        
                        final position = await Geolocator().getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
                        setState(() {
                          _lat = position.latitude.toString();
@@ -230,6 +238,7 @@ import 'dart:io';
 
                        });
                        print(position.altitude);
+                       playAudioo();
                      },
                          color: Colors.black,
                             shape : RoundedRectangleBorder(
@@ -264,6 +273,7 @@ import 'dart:io';
                            ),
                          ),
                          onPressed: () async {
+                           playAudioo();
                            setState(() {
                            _counter++;
                            clicked=true;
@@ -320,6 +330,7 @@ import 'dart:io';
 //                               writeCounter('');
                                writeCounter('${distance.toStringAsFixed(3)},$day,$datee,$timefull');
 //                               print("bleh");
+                              _audioCache.play('1.mp3');
                                addInfo(_lat,_long,(time*344/1000000).toStringAsFixed(3));
 
                              }

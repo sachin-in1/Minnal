@@ -77,6 +77,9 @@ class _StatsState extends State<Stats> {
     itemCount = (FinalList.length/4).floor();
     FinalList=FinalList.reversed.toList();
     print(FinalList.length);
+
+    if(itemCount>10)
+      itemCount = 10;
     
     return Scaffold(backgroundColor: Color(0xff383838),
     body: Container(

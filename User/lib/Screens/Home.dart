@@ -10,8 +10,16 @@ import 'package:path_provider/path_provider.dart';
 import 'dart:io';
 import 'package:audioplayers/audio_cache.dart';
 import 'package:audioplayers/audioplayers.dart';
+import 'package:permission_handler/permission_handler.dart';
+import 'package:location/location.dart';
 
+final location = Location();
 
+Future _checkGps() async {
+if(!await location.serviceEnabled()){
+   location.requestService();
+  }
+}
  class MyHomePage extends StatefulWidget {
    MyHomePage({Key key, this.title}) : super(key: key);
    final String title;
@@ -118,6 +126,7 @@ import 'package:audioplayers/audioplayers.dart';
      });
      clicked = false;
      super.initState();
+     _checkGps();
      _audioCache = AudioCache(prefix: "audio/", fixedPlayer: AudioPlayer()..setReleaseMode(ReleaseMode.STOP));
    }
 
@@ -230,14 +239,17 @@ import 'package:audioplayers/audioplayers.dart';
 //                         ),
                        ),
                        onPressed: () async{
-                        
-                       final position = await Geolocator().getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
+                        var status = await Permission.location.request();
+                        print(status);
+                      //  final position = await Geolocator().getCurrentPosition(desiredAccuracy: LocationAccuracy.high);4
+                      final position = await location.getLocation();
+                      print(position);
                        setState(() {
                          _lat = position.latitude.toString();
                          _long = position.longitude.toString();
 
                        });
-                       print(position.altitude);
+                      //  print(position.altitude);
                        playAudioo();
                      },
                          color: Colors.black,
@@ -331,7 +343,7 @@ import 'package:audioplayers/audioplayers.dart';
                                writeCounter('${distance.toStringAsFixed(3)},$day,$datee,$timefull');
 //                               print("bleh");
                               _audioCache.play('1.mp3');
-                               addInfo(_lat,_long,(time*344/1000000).toStringAsFixed(3));
+                               addInfo(_lat,_long,(time*344/1000000).toString());
 
                              }
                             //  print(time*344/100000);

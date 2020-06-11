@@ -28,6 +28,8 @@ dependencies:
   cloud_firestore: ^0.13.6
   flutter_launcher_icons: ^0.7.5
   audioplayers: ^0.15.1
+  permission_handler: ^5.0.1
+  location: ^3.0.2
   path_provider:
   
 

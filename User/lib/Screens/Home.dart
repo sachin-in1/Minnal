@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:ui';
 import 'package:Minnal/database/database.dart';
 import 'package:Minnal/Screens/Stats.dart';
 import 'package:intl/intl.dart';
@@ -27,6 +28,7 @@ import 'dart:io';
    int time=0;
    int _start = 0;
    String content="";
+   bool clicked;
 
   void addInfo(String lat,String long,String dist) async{
         await DatabaseService().addInfo(lat,long,dist);
@@ -108,6 +110,7 @@ import 'dart:io';
 
        print(content);
      });
+     clicked = false;
      super.initState();
    }
 
@@ -147,10 +150,25 @@ import 'dart:io';
                child: Text(
                  'Enable Location',style: Theme.of(context).textTheme.headline6,
                ),
-             ):_counter%2==0?
-             Expanded(child:Text((time*344/1000000).toString()+" Kilometers Away",style: TextStyle(height: 2, fontSize: 27),))
+             ):clicked==true?_counter%2==0?
+             Expanded(
+                 child:Row(
+               crossAxisAlignment: CrossAxisAlignment.center,
+               mainAxisAlignment: MainAxisAlignment.center,
+               children: [
+                 Text((time*344/1000000).toStringAsPrecision(2),style: TextStyle( fontSize: 22),),
+                 Column(
+                   children: [
+                     Spacer(),
+                     SizedBox(height: 1,),
+                     Text(" Kilometers Away",style: TextStyle(color:Colors.black54, fontSize: 16)),
+                     Spacer()
+                   ],
+                 )
+               ],
+             ))
                  :
-             Expanded(child:Text("Click The Button When You Hear Thunder",style: TextStyle(height: 2, fontSize: 18))),
+             Expanded(child:Text("Click The Button When You Hear Thunder",style: TextStyle(height: 2, fontSize: 18))):Expanded(child:Text("Click The Button When You See Lighting",style: TextStyle(height: 2, fontSize: 18),)),
              _long == null || _lat == null ?
              Expanded(
                flex: 4,
@@ -177,12 +195,6 @@ import 'dart:io';
                                child: Text(""),)
                              ],
                            )
-//                               :
-//                           Column(
-//                             crossAxisAlignment: CrossAxisAlignment.stretch,
-//                             children: [
-//                               Image.asset('assets/idi.png',fit: BoxFit.cover,),
-//                             ],
                            ),
 //                         ),
                        ),
@@ -196,11 +208,9 @@ import 'dart:io';
                        print(position.altitude);
                      },
                          color: Colors.black,
-                         //                  shape: BoxShape.circle,
                             shape : RoundedRectangleBorder(
                          borderRadius:BorderRadius.circular(MediaQuery.of(context).size.width*0.8),
      )
-//                       child: Text("Add Location"),
                      ),
 
                  )
@@ -226,17 +236,13 @@ import 'dart:io';
                              child: _counter%2==0?
                              Image.asset('assets/minnal.png',height: MediaQuery.of(context).size.width*0.6,)
                                  :
-//                             Column(
-//                               crossAxisAlignment: CrossAxisAlignment.center,
-//                               children: [
                                  Image.asset('assets/idi.png',height: MediaQuery.of(context).size.width*0.6,),
-//                               ],
-//                             ),
                            ),
                          ),
                          onPressed: () async {
                            setState(() {
                            _counter++;
+                           clicked=true;
                            startTimer(_counter);
                            if(_counter%2==0){
                              _counter=0;
@@ -259,7 +265,7 @@ import 'dart:io';
         ),
         actions: <Widget>[
           FlatButton(
-            child: Text('Home'),
+            child: Text('Okay'),
             onPressed: () {
               Navigator.of(context).pop();
             },
@@ -288,7 +294,7 @@ import 'dart:io';
                                var timm = (minutes > 9)?'$minutes':'0$minutes';
                                var timefull = hour +":" +timm+" " + ampm;
 //                               writeCounter('');
-                               writeCounter('$distance,$day,$datee,$timefull');
+                               writeCounter('${distance.toStringAsPrecision(2)},$day,$datee,$timefull');
 //                               print("bleh");
                                addInfo(_lat,_long,(time*344/1000000).toString());
 

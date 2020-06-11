@@ -125,7 +125,23 @@ import 'dart:io';
        ),
        drawer: Drawer(
 
-           child:Stats(content)),
+           child:_counter==0?Stats(content):
+           Container(
+             decoration: BoxDecoration(
+                 gradient: LinearGradient(
+                     begin: Alignment.topRight,
+                     end: Alignment.bottomLeft,
+                     colors: [Color(0xfff2d229), Colors.cyan])),
+             child:Center(
+               child: Wrap(
+                 crossAxisAlignment: WrapCrossAlignment.center,
+                 children: <Widget>[Padding(
+                   padding: const EdgeInsets.all(18.0),
+                   child: Text("Don't Forget to Click The Previous Button",style: TextStyle(color: Colors.white,letterSpacing: 2,fontSize: 20,fontWeight: FontWeight.bold),),
+                 )],
+               ),
+             ),)
+       ),
       backgroundColor: Theme.of(context).backgroundColor,
 //    backgroundColor: Colors.blue,
      

@@ -153,12 +153,12 @@ import 'dart:io';
              ):clicked==true?_counter%2==0?
              Expanded(
                  child:Row(
-               crossAxisAlignment: CrossAxisAlignment.center,
+               crossAxisAlignment: CrossAxisAlignment.start,
                mainAxisAlignment: MainAxisAlignment.center,
                children: [
                  Column(
                    children: [
-                     Spacer(),
+//                     Spacer(),
                      SizedBox(height: 8,),
                      Text("It Was  ",style: TextStyle(color:Colors.black, fontSize: 18,letterSpacing: 1.5)),
                      Spacer()
@@ -167,7 +167,7 @@ import 'dart:io';
                  Text((time*344/1000000).toStringAsFixed(3),style: TextStyle( fontSize: 26,fontWeight: FontWeight.bold),),
                  Column(
                    children: [
-                     Spacer(),
+//                     Spacer(),
                      SizedBox(height: 8,),
                      Text("  kms Away",style: TextStyle(color:Colors.black, fontSize: 18,letterSpacing: 1.5)),
                      Spacer()

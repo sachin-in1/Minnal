@@ -224,14 +224,14 @@ import 'dart:io';
                            padding: const EdgeInsets.all(8.0),
                            child: Center(
                              child: _counter%2==0?
-                             Image.asset('assets/minnal.png')
+                             Image.asset('assets/minnal.png',height: MediaQuery.of(context).size.width*0.6,)
                                  :
-                             Column(
-                               crossAxisAlignment: CrossAxisAlignment.stretch,
-                               children: [
-                                 Image.asset('assets/idi.png',fit: BoxFit.cover,),
-                               ],
-                             ),
+//                             Column(
+//                               crossAxisAlignment: CrossAxisAlignment.center,
+//                               children: [
+                                 Image.asset('assets/idi.png',height: MediaQuery.of(context).size.width*0.6,),
+//                               ],
+//                             ),
                            ),
                          ),
                          onPressed: () async {

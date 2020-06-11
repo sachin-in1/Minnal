@@ -12,7 +12,7 @@ import 'package:audioplayers/audio_cache.dart';
 import 'package:audioplayers/audioplayers.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:location/location.dart';
-
+import 'package:flutter/services.dart';
 final location = Location();
 
 Future _checkGps() async {
@@ -132,7 +132,10 @@ if(!await location.serviceEnabled()){
 
 
    Widget build(BuildContext context) {
-
+     SystemChrome.setPreferredOrientations([
+        DeviceOrientation.portraitUp,
+        DeviceOrientation.portraitDown,
+      ]);
      return Scaffold(
        appBar: AppBar(
          elevation: 0,

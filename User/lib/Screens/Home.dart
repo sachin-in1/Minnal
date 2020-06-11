@@ -150,7 +150,7 @@ import 'dart:io';
              ):_counter%2==0?
              Expanded(child:Text((time*344/1000000).toString()+" Kilometers Away",style: Theme.of(context).textTheme.headline6,))
                  :
-             Expanded(child:Text("Click The Button When You Hear Thunder")),
+             Expanded(child:Text("Click The Button When You Hear Thunder",style: TextStyle(height: 2, fontSize: 18))),
              _long == null || _lat == null ?
              Expanded(
                flex: 4,

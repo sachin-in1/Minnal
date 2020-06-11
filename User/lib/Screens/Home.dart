@@ -156,12 +156,20 @@ import 'dart:io';
                crossAxisAlignment: CrossAxisAlignment.center,
                mainAxisAlignment: MainAxisAlignment.center,
                children: [
-                 Text((time*344/1000000).toStringAsPrecision(2),style: TextStyle( fontSize: 22),),
                  Column(
                    children: [
                      Spacer(),
-                     SizedBox(height: 1,),
-                     Text(" Kilometers Away",style: TextStyle(color:Colors.black54, fontSize: 16)),
+                     SizedBox(height: 8,),
+                     Text("It Was  ",style: TextStyle(color:Colors.black, fontSize: 18,letterSpacing: 1.5)),
+                     Spacer()
+                   ],
+                 ),
+                 Text((time*344/1000000).toStringAsFixed(3),style: TextStyle( fontSize: 26,fontWeight: FontWeight.bold),),
+                 Column(
+                   children: [
+                     Spacer(),
+                     SizedBox(height: 8,),
+                     Text("  kms Away",style: TextStyle(color:Colors.black, fontSize: 18,letterSpacing: 1.5)),
                      Spacer()
                    ],
                  )
@@ -294,9 +302,9 @@ import 'dart:io';
                                var timm = (minutes > 9)?'$minutes':'0$minutes';
                                var timefull = hour +":" +timm+" " + ampm;
 //                               writeCounter('');
-                               writeCounter('${distance.toStringAsPrecision(2)},$day,$datee,$timefull');
+                               writeCounter('${distance.toStringAsFixed(3)},$day,$datee,$timefull');
 //                               print("bleh");
-                               addInfo(_lat,_long,(time*344/1000000).toString());
+                               addInfo(_lat,_long,(time*344/1000000).toStringAsFixed(3));
 
                              }
                             //  print(time*344/100000);
